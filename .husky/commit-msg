@@ -1,0 +1,23 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+message="$(cat $1)"
+requiredPattern="^(GE|VH|VE)\-[0-9]+ .*$"
+if ! [[ $message =~ $requiredPattern ]];
+then
+  echo "-"
+  echo "-"
+  echo "🚨 Check your commit message! 🚨"
+  echo "Available prefixes for commit messages: GE|VH|VE"
+  echo "-"
+  echo "The commit message must have this format:"
+  echo "<JIRA_ISSUE_NUMBER> - <What was done>"
+  echo "-"
+  echo "Example:"
+  echo "VH-19 - mobilization chart fix"
+  echo "-"
+  echo "Your commit message was:"
+  echo $message
+  echo "-"
+  exit 1
+fi
